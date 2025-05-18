@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from SmartKitchen import settings
+
 
 class DishType(models.Model):
     name = models.CharField(max_length=65, unique=True)
@@ -41,3 +43,16 @@ class Cook(AbstractUser):
         valid_position = [choice[0] for choice in self.POSITION_CHOICES]
         if self.position not in valid_position:
             raise ValidationError("Invalid position selected")
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=65, unique=True)
+    stock_count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Ingredient"
+        verbose_name_plural = "Ingredients"
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name} ({self.stock_count})"
