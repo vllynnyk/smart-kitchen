@@ -88,15 +88,32 @@ class IngredientTest(TestCase):
 
 
 class DishTest(TestCase):
-    def test_dish_type_str(self):
+    def test_dish_str(self):
         dish_type = DishType.objects.create(name="Dessert")
         dish = Dish.objects.create(
             name="Apple Pie",
             description="Delicious apple pie",
-            price=10,
+            price=10.20,
             dish_type=dish_type,
         )
         self.assertEqual(str(dish),
                          f"{dish.name}"
                          f" {dish.price}"
                          f" {dish.dish_type.name}")
+
+    def test_dish_ordering(self):
+        dish_type = DishType.objects.create(name="Dessert")
+        Dish.objects.create(
+            name="Apple Pie",
+            description="Delicious apple pie",
+            price=10.20,
+            dish_type=dish_type,
+        )
+        Dish.objects.create(
+            name="Cherry Pie",
+            description="Delicious cherry pie",
+            price=20.99,
+            dish_type=dish_type,
+        )
+        all_dishes = list(Dish.objects.all())
+        self.assertEqual(all_dishes[0].name, "Apple Pie")
