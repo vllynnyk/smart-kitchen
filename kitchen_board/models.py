@@ -56,3 +56,17 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.stock_count})"
+
+
+class DishIngredient(models.Model):
+    dish = models.ForeignKey("Dish",
+                             related_name="dish_ingredients",
+                             on_delete=models.CASCADE)
+    ingredient = models.ForeignKey("Ingredient",
+                                   related_name="ingredient_dishes",
+                                   on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Dish Ingredient"
+        verbose_name_plural = "Dish Ingredients"
