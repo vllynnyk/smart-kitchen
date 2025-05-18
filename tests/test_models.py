@@ -1,9 +1,11 @@
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from kitchen_board.models import DishType
+from kitchen_board.models import DishType, Cook
 
 
-class ModelsTest(TestCase):
+class DishTypeTest(TestCase):
 
     def test_dish_type_str(self):
         dish_type = DishType.objects.create(name="Soups")
@@ -17,3 +19,17 @@ class ModelsTest(TestCase):
         DishType.objects.create(name="Pizza")
         all_dish_types = list(DishType.objects.all())
         self.assertEqual(all_dish_types[0]. name, "Pizza")
+
+
+class CookTest(TestCase):
+
+    def setUp(self):
+        self.cook = get_user_model().objects.create_user(
+            username="john_j",
+            first_name="John",
+            last_name="Jones",
+            password="1234pass",
+            position = "head_chef",
+            years_of_experience=5,
+        )
+
