@@ -51,3 +51,15 @@ class CookTest(TestCase):
         )
         with self.assertRaises(ValidationError):
             cook.full_clean()
+
+    def test_cook_ordering_by_username(self):
+        get_user_model().objects.create_user(
+            username="john_w",
+            password="1234pass",
+        )
+        get_user_model().objects.create_user(
+            username="john_d",
+            password="1234pass",
+        )
+        all_cook = Cook.objects.all()
+        self.assertEqual(all_cook[0].username, "john_d")
