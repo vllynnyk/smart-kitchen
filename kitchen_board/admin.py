@@ -32,3 +32,10 @@ class CookAdmin(UserAdmin):
             },
         ),
     )
+
+
+class DishIngredientInline(admin.TabularInline):
+    model = DishIngredient
+    extra = 1
+    autocomplete_fields = ("ingredient",)
+
