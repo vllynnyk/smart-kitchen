@@ -1,7 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
-from kitchen_board.models import Cook
+from kitchen_board.models import (Cook,
+                                  DishType,
+                                  Dish,
+                                  DishIngredient,
+                                  Ingredient)
+
+
+admin.site.register(DishType)
+admin.site.register(Ingredient)
+
 
 @admin.register(Cook)
 class CookAdmin(UserAdmin):
