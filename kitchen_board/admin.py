@@ -39,3 +39,10 @@ class DishIngredientInline(admin.TabularInline):
     extra = 1
     autocomplete_fields = ("ingredient",)
 
+
+@admin.register(Dish)
+class DishAdmin(admin.ModelAdmin):
+    list_display = ("name", "price", "dish_type")
+    search_fields = ("name",)
+    list_filter = ("dish_type",)
+    inlines = [DishIngredientInline]
